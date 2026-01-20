@@ -3,7 +3,7 @@
 import { useContext, createContext, ReactNode } from "react";
 
 interface AuthProps {
-  authState: { authenticated: boolean | null; users: any };
+  authState: { authenticated: boolean | null; user: any };
   onRegister: (email: string, password: string) => Promise<any>;
   onLogin: (email: string, password: string) => Promise<any>;
   onLogout: () => Promise<any>;
