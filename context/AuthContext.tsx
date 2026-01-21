@@ -14,12 +14,18 @@ interface AuthProps {
   authState: { authenticated: boolean | null; user: any };
   onRegister: (email: string, password: string) => Promise<any>;
   onLogin: (email: string, password: string) => Promise<any>;
-  onLogout: () => Promise<any>;
+  onLogout: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthProps>({} as AuthProps);
+const AuthContext = createContext<AuthProps | undefined>(undefined);
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authState, setAuthState] = useState<{
@@ -30,6 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     user: null,
   });
   const router = useRouter();
+
   useEffect(() => {
     const checkUserStatus = async () => {
       try {
