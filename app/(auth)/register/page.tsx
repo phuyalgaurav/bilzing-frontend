@@ -1,14 +1,15 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { use, useState } from "react";
-import { useRouter } from "next/router";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { onRegister } = useAuth();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,12 +22,12 @@ export default function RegisterPage() {
       alert(res.msg);
     } else {
       alert("Registration successful! Please log in.");
-      useRouter().push("/login");
+      router.push("/login");
     }
   };
 
   return (
-    <div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <h1>Register into Bilzing</h1>
       <form onSubmit={handleSubmit}>
         <input

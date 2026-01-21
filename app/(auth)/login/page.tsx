@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -38,35 +39,49 @@ export default function LoginPage() {
                 Email
               </label>
               <input
+                className="appearance-none relative block w-block px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus-z-10 sm:text-sm"
                 type="email"
-                placeholder="Email"
+                placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Password
               </label>
               <input
+                className="appearance-none relative block w-block px-4 py-3 border text-left border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus-z-10 sm:text-sm"
                 type="password"
-                placeholder="Password"
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
             <div>
-              <button type="submit">Login</button>
+              <button
+                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:bg-indigo-400"
+                type="submit"
+              >
+                Login
+              </button>
             </div>
           </div>
         </form>
-        <p>
-          Don't have an account?
-          <a href="/register"> Register Here</a>
-        </p>
+        {/* Footer */}
+        <div className="text-center">
+          <p className="text-sm text-gray-600">
+            Don&apos;t have an account?
+            <Link
+              href="/register"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              Create an account
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
