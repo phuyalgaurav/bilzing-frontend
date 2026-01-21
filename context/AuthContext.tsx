@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import {
   useState,
   useEffect,
@@ -11,7 +11,10 @@ import {
 import { api } from "@/lib/api";
 
 interface AuthProps {
-  authState: { authenticated: boolean | null; user: any };
+  authState: {
+    authenticated: boolean | null;
+    user: Record<string, any> | null;
+  };
   onRegister: (email: string, password: string) => Promise<any>;
   onLogin: (email: string, password: string) => Promise<any>;
   onLogout: () => Promise<void>;
@@ -42,7 +45,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         const res = await api.get("/auth/me");
         setAuthState({ authenticated: true, user: res.data.user });
-      } catch (err) {
+      } catch (err: any) {
+        console.log("User not authenticated", err);
         setAuthState({ authenticated: false, user: null });
       }
     };
